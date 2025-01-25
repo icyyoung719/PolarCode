@@ -5,33 +5,23 @@ function [gen, det] = get_crc_objective(crc_length)
 %   det - CRC 检测器对象，用于检测数据的 CRC 校验码
     switch crc_length
         case 4
-            gen = comm.CRCGenerator('Polynomial',[1 0 0 1 1],'InitialConditions',zeros(1, 4),'DirectMethod',true,'FinalXOR',zeros(1, 4));
-            det = comm.CRCDetector('Polynomial',[1 0 0 1 1],'InitialConditions',zeros(1, 4),'DirectMethod',true,'FinalXOR',zeros(1, 4));
+            Polynomial = "x^4 + x + 1";
         case 6
-            gen = comm.CRCGenerator('Polynomial',[1 0 0 0 0 1 1],'InitialConditions',zeros(1, 6),'DirectMethod',true,'FinalXOR',zeros(1, 6));
-            det = comm.CRCDetector('Polynomial',[1 0 0 0 0 1 1],'InitialConditions',zeros(1, 6),'DirectMethod',true,'FinalXOR',zeros(1, 6));
+            Polynomial = "x^6 + x + 1";
         case 8
-            gen = comm.CRCGenerator('Polynomial','0xA6','InitialConditions','0x00','DirectMethod',true,'FinalXOR','0x00');
-            det = comm.CRCDetector('Polynomial','0xA6','InitialConditions','0x00','DirectMethod',true,'FinalXOR','0x00');
+            Polynomial = "x^8 + x^2 + x + 1";
         case 10
-            gen = comm.CRCGenerator('Polynomial',[1 1 0 0 1 0 0 1 1 1 1],'InitialConditions',zeros(1, 10),'DirectMethod',true,'FinalXOR',zeros(1, 10));
-            det = comm.CRCDetector('Polynomial',[1 1 0 0 1 0 0 1 1 1 1],'InitialConditions',zeros(1, 10),'DirectMethod',true,'FinalXOR',zeros(1, 10));
+            Polynomial = "x^10 + x^9 + x^5 + x^4 + x + 1";
         case 12
-            gen = comm.CRCGenerator('Polynomial',[1 1 0 0 0 0 0 0 0 1 1 0 1],'InitialConditions',zeros(1, 12),'DirectMethod',true,'FinalXOR',zeros(1, 12));
-            det = comm.CRCDetector('Polynomial',[1 1 0 0 0 0 0 0 0 1 1 0 1],'InitialConditions',zeros(1, 12),'DirectMethod',true,'FinalXOR',zeros(1, 12));
+            Polynomial = "x^12 + x^11 + x^3 + x^2 + 1";
         case 16
-            gen = comm.CRCGenerator('Polynomial',[1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1],'InitialConditions',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0],'DirectMethod',true,...
-                'FinalXOR',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]);
-            det = comm.CRCDetector('Polynomial',[1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1],'InitialConditions',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0],'DirectMethod',true,...
-                'FinalXOR',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]);
+            Polynomial = "x^12 + x^11 + x^3 + x^2 + 1";
         case 24
-            gen = comm.CRCGenerator('Polynomial',[1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 1],...
-                'InitialConditions',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0],'DirectMethod',true,...
-                'FinalXOR',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]);
-            det = comm.CRCDetector('Polynomial',[1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 1 1],...
-                'InitialConditions',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0],'DirectMethod',true,...
-                'FinalXOR',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]);
+            Polynomial = "x^24 + x^23 + x^6 + x^5 + x + 1";
         otherwise
-            error('Unsupported CRC length. Program terminates');
+            disp('Unsupported CRC length. Program terminates')
     end
+
+     gen = comm.CRCGenerator(Polynomial = Polynomial);
+     det = comm.CRCDetector(Polynomial = Polynomial);
 end
