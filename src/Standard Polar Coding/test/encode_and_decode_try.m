@@ -1,3 +1,4 @@
+clc;
 N = 8;  % 码长
 K = 4;  % 信息比特数量
 
@@ -7,12 +8,12 @@ alpha = 0.5; % BEC信道的删除率
 
 codeword = standard_encode(message, N, K, alpha);
 
-% decoded_message = SC_decode(codeword, N, K, alpha);
+decoded_message = SC_decode(codeword, N, K, alpha);
 
 % 输出结果
 disp('Message:');
 disp(message);
 disp('Encoded Codeword:');
 disp(codeword);
-% disp('Decoded Message:');
-% disp(decoded_message);
+disp('Decoded Message:');
+disp(decoded_message);
