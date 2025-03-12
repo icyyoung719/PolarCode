@@ -180,13 +180,13 @@ for phi = 0 : N - 1
         end
     end
 end
-%path selection.
+% path selection.
 [~, path_ordered] = sort(PM); %输出按升序排列的PM值的索引
 for l_index = 1 : L
     path_num = path_ordered(l_index);
     info_with_crc = u(:, path_num);
 %     err = sum(mod(H_crc * info_with_crc, 2));
-    [~,err]=detect(det,info_with_crc);
+    [~,err]=det(info_with_crc);
     if err == 0
         polar_info_esti = u(:, path_num);
         break;
@@ -195,5 +195,5 @@ for l_index = 1 : L
             polar_info_esti = u(:, path_ordered(1));
         end
     end
-end 
+end
 end
