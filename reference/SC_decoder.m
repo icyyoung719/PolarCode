@@ -21,8 +21,8 @@ for phi = 0 : N - 1
     switch phi
     % 根据 𝜙 的位置，确定其属于哪个阶段（译码第一半部分、第二半部分或一般位置）。
         case 0 % 译码上一半的第一个
-            index_1 = lambda_offset(n);  % index_1 是 4， 如果 N=8 的话
-            % 这个 for 循环，计算倒数第二层的 LLR 似然比，N=8极化码，计算出来 4 个 LLR
+            index_1 = lambda_offset(n); 
+            % 计算倒数第二层的 LLR 似然比，N=8极化码，计算出来 4 个 LLR
             % P(4) <==  LLR(1) 与 LLR(5)
             % P(5) <==  LLR(2) 与 LLR(6)
             % P(6) <==  LLR(3) 与 LLR(7)
@@ -31,7 +31,7 @@ for phi = 0 : N - 1
                 % L_left = sign(L_1)*sign(L_2)*min{abs(L_1),abs(L_2)}
                 P(beta + index_1) =  sign(llr(beta + 1)) * sign(llr(beta + 1 + index_1)) * min(abs(llr(beta + 1)), abs(llr(beta + 1 + index_1)));
             end
-            % 这个 for 循环，计算除了倒数第二层其它层的 LLR 似然比，循环两次，分别计算都输第三层(2个）和第四层（1个）的 LLR
+            % 计算除了倒数第二层其它层的 LLR 似然比，循环两次，分别计算都输第三层(2个）和第四层（1个）的 LLR
             % i_layer = 1 时, index_1=2  index_2 = 4
             %    P(2)  <== P(4) 与 P(6)
             %    P(3)  <== P(5) 与 P(7)

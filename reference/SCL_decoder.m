@@ -9,7 +9,7 @@ function polar_info_esti = SCL_decoder(llr, L, K, frozen_bits, lambda_offset, ll
 %   bit_layer_vec  - 每个比特对应的译码层编号
 % 输出：
 %   polar_info_esti - 译码出的信息比特序列
-
+% CASCL FASTSCL
 % -----------------------------初始化--------------------------------------
 N = length(llr);                  % 码长（必须为 2 的幂次）
 m = log2(N);                      % 码的深度（m = log2(N)）
